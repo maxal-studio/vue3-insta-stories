@@ -19,12 +19,12 @@
 		"type": "git",
 		"url": "https://github.com/maxal-studio/vue3-insta-stories.git"
 	},
-	"main": "./dist/vue3-insta-stories.umd.js",
+	"main": "./dist/vue3-insta-stories.common.js",
 	"files": [
 		"dist"
 	],
 	"scripts": {
-		"build": "vue-cli-service build --target lib --name vue3-insta-stories ./lib/main.js",
+		"build": "vue-cli-service build --target lib --name vue3-insta-stories ./lib/index.js",
 		"serve:demo": "vue-cli-service serve",
 		"build:demo": "vue-cli-service build",
 		"lint:demo": "vue-cli-service lint"

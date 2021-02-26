@@ -5,7 +5,7 @@
       :class="{ withTransition: withTransition }"
       :style="generatePosition()"
     >
-      <Story
+      <story
         v-for="(story, index) in stories"
         :key="index"
         :duration="duration"
@@ -25,7 +25,7 @@
         <template v-slot:slide="{ slide }">
           <slot name="slide" v-bind:slide="slide" v-bind:story="story"> </slot>
         </template>
-      </Story>
+      </story>
     </div>
   </div>
 </template>
@@ -33,7 +33,9 @@
 <script>
 import debounce from "lodash/debounce";
 import { onBeforeUpdate, ref } from "vue";
+import Story from "./Story.vue";
 export default {
+  components: { Story },
   setup() {
     const grouped_stories = ref([]);
     const stories_wrapper = ref(null);

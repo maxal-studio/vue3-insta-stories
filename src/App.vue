@@ -48,9 +48,11 @@
 </template>
 
 <script>
+import Stories from "./../lib";
 import { ref } from "vue";
 export default {
   name: "App",
+  components: { Stories },
   setup() {
     const stories_component = ref(null);
 
