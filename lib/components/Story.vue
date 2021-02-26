@@ -44,12 +44,6 @@ export default {
     resetSlide: function () {
       // Jump to beginning of the slide
       let duration = 0;
-      // if (this.slides[this.currentSlideIndex].duration != undefined) {
-      // } else {
-      //   //Index * Default Duration
-      //   duration = this.currentSlideIndex * this.duration;
-      // }
-
       //If custom duration is set, go through each duration and sum them togetehr
       for (let index in this.slides) {
         if (this.currentSlideIndex == 0) {
