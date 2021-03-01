@@ -22,28 +22,33 @@
     <button class="btn btn-secondary" @click="nextSlide">Next Slide</button>
 
     <!-- Stories View -->
-    <div class="stories_wrapper">
-      <stories
-        :autoplay="false"
-        :duration="duration"
-        :stories="stories"
-        ref="stories_component"
-        @ended="endedEvent"
-        @next_story="nextStoryEvent"
-        @prev_story="prevStoryEvent"
-        @prev_slide="prevSlideEvent"
-        @next_slide="nextSlideEvent"
-      >
-        <template v-slot:slide="{ story, slide }">
-          <div class="slide" :style="'background-color:' + slide.color">
-            <div>
-              <p>{{ story.custom_attribute }}</p>
-              <p>Color: {{ slide.color }}</p>
+    <div class="overlay" v-show="showSlider">
+      <div class="stories_wrapper">
+        <stories
+          :autoplay="false"
+          :duration="duration"
+          :stories="stories"
+          width="200px"
+          height="200px"
+          ref="stories_component"
+          @ended="endedEvent"
+          @next_story="nextStoryEvent"
+          @prev_story="prevStoryEvent"
+          @prev_slide="prevSlideEvent"
+          @next_slide="nextSlideEvent"
+        >
+          <template v-slot:slide="{ story, slide }">
+            <div class="slide" :style="'background-color:' + slide.color">
+              <div>
+                <p>{{ story.custom_attribute }}</p>
+                <p>Color: {{ slide.color }}</p>
+              </div>
             </div>
-          </div>
-        </template>
-      </stories>
+          </template>
+        </stories>
+      </div>
     </div>
+    <!-- /.overlay -->
   </div>
 </template>
 
@@ -62,6 +67,7 @@ export default {
   },
   data() {
     return {
+      showSlider: false,
       duration: 5000,
       stories: [
         {
@@ -92,10 +98,12 @@ export default {
   methods: {
     //Actions
     storyClicked(index) {
+      this.showSlider = true;
       this.stories_component.playStory(index);
     },
     stopStory() {
       this.stories_component.stopStory();
+      this.showSlider = false;
     },
     resetStory() {
       this.stories_component.resetStory();
@@ -136,17 +144,26 @@ export default {
 </script>
   
 <style lang='scss'>
-.stories_wrapper {
-  width: 300px;
-  height: 400px;
-  outline: 1px solid red;
-  margin-top: 15px;
-  .slide {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.overlay {
+  position: fixed;
+  top: 200px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+
+  .stories_wrapper {
+    width: 300px;
+    height: 400px;
+    outline: 1px solid red;
+    margin: 50px auto;
+    .slide {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }
 </style>

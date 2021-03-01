@@ -68,6 +68,7 @@ export default {
   },
   data() {
     return {
+      recalculateDimensionsTimeOut: null,
       withTransition: true,
       currentStoryIndex: 0,
       width: 0,
@@ -76,9 +77,9 @@ export default {
   },
   mounted() {
     //Window resize event
-    this.getStoriesWrapperSize();
+    this.recalculateDimensions();
     window.addEventListener("resize", () => {
-      this.getStoriesWrapperSize();
+      this.recalculateDimensions();
     });
     // Disable mouse wheel
     this.$el.addEventListener("wheel", (event) => {
@@ -128,9 +129,23 @@ export default {
     }
   },
   methods: {
-    getStoriesWrapperSize() {
+    recalculateDimensions() {
       this.width = this.stories_wrapper.offsetWidth;
       this.height = this.stories_wrapper.offsetHeight;
+
+      //Check if timeout is set and clear it
+      if (this.recalculateDimensionsTimeOut != null) {
+        clearTimeout(this.recalculateDimensionsTimeOut);
+      }
+
+      if (
+        this.stories_wrapper.offsetWidth == 0 ||
+        this.stories_wrapper.offsetHeight == 0
+      ) {
+        this.recalculateDimensionsTimeOut = setTimeout(() => {
+          this.recalculateDimensions();
+        }, 100);
+      }
     },
     prevSlideEvent() {
       this.$emit("prev_slide");
@@ -172,6 +187,7 @@ export default {
       this.grouped_stories[this.currentStoryIndex].deactivate();
       this.currentStoryIndex = index;
       this.grouped_stories[index].activate();
+      this.recalculateDimensions();
     },
     stopStory() {
       this.grouped_stories[this.currentStoryIndex].deactivate();
