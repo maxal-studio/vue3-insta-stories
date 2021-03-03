@@ -77,9 +77,9 @@ export default {
   },
   mounted() {
     //Window resize event
-    this.recalculateDimensions();
+    this.recalculateDimensions(false);
     window.addEventListener("resize", () => {
-      this.recalculateDimensions();
+      this.recalculateDimensions(false);
     });
     // Disable mouse wheel
     this.$el.addEventListener("wheel", (event) => {
@@ -129,22 +129,24 @@ export default {
     }
   },
   methods: {
-    recalculateDimensions() {
+    recalculateDimensions(wait = true) {
       this.width = this.stories_wrapper.offsetWidth;
       this.height = this.stories_wrapper.offsetHeight;
 
       //Check if timeout is set and clear it
-      if (this.recalculateDimensionsTimeOut != null) {
-        clearTimeout(this.recalculateDimensionsTimeOut);
-      }
+      if (wait == true) {
+        if (this.recalculateDimensionsTimeOut != null) {
+          clearTimeout(this.recalculateDimensionsTimeOut);
+        }
 
-      if (
-        this.stories_wrapper.offsetWidth == 0 ||
-        this.stories_wrapper.offsetHeight == 0
-      ) {
-        this.recalculateDimensionsTimeOut = setTimeout(() => {
-          this.recalculateDimensions();
-        }, 100);
+        if (
+          this.stories_wrapper.offsetWidth == 0 ||
+          this.stories_wrapper.offsetHeight == 0
+        ) {
+          this.recalculateDimensionsTimeOut = setTimeout(() => {
+            this.recalculateDimensions(wait);
+          }, 100);
+        }
       }
     },
     prevSlideEvent() {
@@ -187,7 +189,6 @@ export default {
       this.grouped_stories[this.currentStoryIndex].deactivate();
       this.currentStoryIndex = index;
       this.grouped_stories[index].activate();
-      this.recalculateDimensions();
     },
     stopStory() {
       this.grouped_stories[this.currentStoryIndex].deactivate();

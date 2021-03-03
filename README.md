@@ -174,6 +174,7 @@ export default {
 <button class="btn btn-secondary" @click="nextStory">Next Story</button>
 <button class="btn btn-secondary" @click="prevSlide">Prev Slide</button>
 <button class="btn btn-secondary" @click="nextSlide">Next Slide</button>
+<button class="btn btn-secondary" @click="recalculateDimensions">Recalculate Dimensions</button>
 ```
 ```js
 export default {
@@ -203,6 +204,9 @@ export default {
     nextSlide() {
       this.stories_component.nextSlide();
     },
+    recalculateDimensions(){
+      this.stories_component.recalculateDimensions();
+    }
   },
   ...
 ```

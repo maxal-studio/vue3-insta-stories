@@ -20,6 +20,9 @@
     <button class="btn btn-secondary" @click="nextStory">Next Story</button>
     <button class="btn btn-secondary" @click="prevSlide">Prev Slide</button>
     <button class="btn btn-secondary" @click="nextSlide">Next Slide</button>
+    <button class="btn btn-secondary" @click="recalculateDimensions">
+      Recalculate Dimensions
+    </button>
 
     <!-- Stories View -->
     <div class="overlay" v-show="showSlider">
@@ -99,7 +102,11 @@ export default {
     //Actions
     storyClicked(index) {
       this.showSlider = true;
+      this.stories_component.recalculateDimensions();
       this.stories_component.playStory(index);
+    },
+    recalculateDimensions() {
+      this.stories_component.recalculateDimensions();
     },
     stopStory() {
       this.stories_component.stopStory();
