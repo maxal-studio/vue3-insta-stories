@@ -97,6 +97,12 @@ export default {
       }
       return { top: _y, left: _x };
     },
+    checkPropagation(event) {
+      if (["BUTTON", "A"].includes(event.target.tagName)) {
+        return false;
+      }
+      return true;
+    },
   },
   mounted() {
     let $timeline = this.$el.getElementsByClassName("timeline")[0];
@@ -131,18 +137,24 @@ export default {
         [Hammer.Press, { time: 1, threshold: 1000000 }],
       ],
     });
-    this.hammer.on("press", () => {
-      this.timeline.pause();
+    this.hammer.on("press", (event) => {
+      if (this.checkPropagation(event)) {
+        this.timeline.pause();
+      }
     });
-    this.hammer.on("pressup tap", () => {
-      this.timeline.play();
+    this.hammer.on("pressup tap", (event) => {
+      if (this.checkPropagation(event)) {
+        this.timeline.play();
+      }
     });
     // Tap on the side to navigate between slides
     this.hammer.on("tap", (event) => {
-      if (event.center.x - this.getOffset(this.$el).left > this.width / 3) {
-        this.nextSlide();
-      } else {
-        this.prevSlide();
+      if (this.checkPropagation(event)) {
+        if (event.center.x - this.getOffset(this.$el).left > this.width / 3) {
+          this.nextSlide();
+        } else {
+          this.prevSlide();
+        }
       }
     });
     // Handle swipe
