@@ -132,7 +132,7 @@ export default {
     });
     this.hammer = new Hammer.Manager(this.$el, {
       recognizers: [
-        [Hammer.Pan, { direction: Hammer.DIRECTION_HORIZONTAL }],
+        [Hammer.Swipe, { direction: Hammer.DIRECTION_ALL }],
         [Hammer.Tap],
         [Hammer.Press, { time: 1, threshold: 1000000 }],
       ],
@@ -157,15 +157,21 @@ export default {
         }
       }
     });
-    // Handle swipe
-    this.hammer.on("pan", (event) => {
-      if (event.isFinal) {
-        if (event.deltaX < 0) {
-          this.nextStory();
-        } else if (event.deltaX > 0) {
-          this.previousStory();
-        }
-      }
+
+    // Handle swipe vertically
+    this.hammer.on("swipeleft", () => {
+      // this.nextStory();
+      this.$emit("swipe_left");
+    });
+    this.hammer.on("swiperight", () => {
+      // this.previousStory();
+      this.$emit("swipe_right");
+    });
+    this.hammer.on("swipeup", () => {
+      this.$emit("swipe_up");
+    });
+    this.hammer.on("swipedown", () => {
+      this.$emit("swipe_down");
     });
   },
 };

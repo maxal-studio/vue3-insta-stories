@@ -39,6 +39,10 @@
           @prev_story="prevStoryEvent"
           @prev_slide="prevSlideEvent"
           @next_slide="nextSlideEvent"
+          @swipe_up="swipe_up"
+          @swipe_down="swipe_down"
+          @swipe_left="swipe_left"
+          @swipe_right="swipe_right"
         >
           <template v-slot:slide="{ story, slide }">
             <div class="slide" :style="'background-color:' + slide.color">
@@ -132,6 +136,8 @@ export default {
     },
     //Events
     endedEvent() {
+      this.stopStory();
+      this.showSlider = false;
       console.log("endedEvent");
     },
     prevStoryEvent() {
@@ -145,6 +151,22 @@ export default {
     },
     nextSlideEvent() {
       console.log("nextSlideEvent");
+    },
+    swipe_left() {
+      console.log("swipe_left Event");
+      this.stories_component.nextStory();
+    },
+    swipe_right() {
+      console.log("swipe_right Event");
+      this.stories_component.prevStory();
+    },
+    swipe_up() {
+      console.log("swipe_up Event");
+    },
+    swipe_down() {
+      console.log("swipe_down Event");
+      this.stopStory();
+      this.showSlider = false;
     },
   },
 };

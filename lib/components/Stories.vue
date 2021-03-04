@@ -16,6 +16,10 @@
         @prev_story="prevStory"
         @next_slide="nextSlideEvent"
         @prev_slide="prevSlideEvent"
+        @swipe_left="swipe_left"
+        @swipe_right="swipe_right"
+        @swipe_up="swipe_up"
+        @swipe_down="swipe_down"
         :ref="
           (el) => {
             grouped_stories[index] = el;
@@ -148,6 +152,18 @@ export default {
           }, 100);
         }
       }
+    },
+    swipe_left() {
+      this.$emit("swipe_left");
+    },
+    swipe_right() {
+      this.$emit("swipe_right");
+    },
+    swipe_up() {
+      this.$emit("swipe_up");
+    },
+    swipe_down() {
+      this.$emit("swipe_down");
     },
     prevSlideEvent() {
       this.$emit("prev_slide");

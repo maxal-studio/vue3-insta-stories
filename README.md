@@ -10,7 +10,7 @@
     - Responsive component
     - Custom design ready 
       - Feel free to design your slides and stories as you wish
-    - Swipe left/right on smaller screens(Mobile) to go to another story
+    - Swipe events
     - Scroll top/bottom on big screens (Pc) to go to another story
     - Custom duration per each slide
     - Built-in actions [Stop,Rest,Play,Previous Story etc.]
@@ -43,7 +43,7 @@ npm i vue3-insta-stories
   <stories
     :autoplay="false"    // Autoplay stories
     :duration="duration" // Default duration per each slide
-    :breakpoint='768'    // Breakpoint to enable swipe left/right
+    :breakpoint='768'    // Mobile breakepoint
     :stories="stories"
     ref="stories_component"
   >
@@ -80,7 +80,7 @@ export default {
       duration: 5000,
       stories: [
         {
-          //Add ass many custom attributes per story as you like
+          //Add as many custom attributes per story as you like
           custom_attribute: "Story 1",
           slides: [
             { 
@@ -132,6 +132,10 @@ export default {
   @prev_story="prevStoryEvent"
   @prev_slide="prevSlideEvent"
   @next_slide="nextSlideEvent"
+  @swipe_up="swipe_up"
+  @swipe_down="swipe_down"
+  @swipe_left="swipe_left"
+  @swipe_right="swipe_right"
 >
 ```
 ```js
@@ -152,6 +156,22 @@ export default {
     },
     nextSlideEvent() {
       console.log("nextSlideEvent");
+    },
+    swipe_left() {
+      console.log("swipe_left Event");
+      this.stories_component.nextStory();
+    },
+    swipe_right() {
+      console.log("swipe_right Event");
+      this.stories_component.prevStory();
+    },
+    swipe_up() {
+      console.log("swipe_up Event");
+    },
+    swipe_down() {
+      console.log("swipe_down Event");
+      this.stopStory();
+      // -- Close slider
     },
   },
   ...
