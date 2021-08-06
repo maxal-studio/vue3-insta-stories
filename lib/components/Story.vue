@@ -131,6 +131,8 @@ export default {
       });
     });
     this.hammer = new Hammer.Manager(this.$el, {
+      touchAction: 'auto',
+      inputClass: Hammer.TouchMouseInput,
       recognizers: [
         [Hammer.Swipe, { direction: Hammer.DIRECTION_ALL }],
         [Hammer.Tap],

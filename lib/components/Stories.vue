@@ -128,28 +128,31 @@ export default {
       { leading: true, trailing: false }
     );
     this.$el.addEventListener("wheel", debouncedWheelCallback);
-    if (this.autoplay == true) {
+    if (this.autoplay === true) {
       this.grouped_stories[0].activate();
     }
   },
   methods: {
     recalculateDimensions(wait = true) {
-      this.width = this.stories_wrapper.offsetWidth;
-      this.height = this.stories_wrapper.offsetHeight;
+      //Check if stories wrapper element exists
+      if(this.stories_wrapper !== null && this.stories_wrapper !== undefined){
+        this.width = this.stories_wrapper.offsetWidth;
+        this.height = this.stories_wrapper.offsetHeight;
 
-      //Check if timeout is set and clear it
-      if (wait == true) {
-        if (this.recalculateDimensionsTimeOut != null) {
-          clearTimeout(this.recalculateDimensionsTimeOut);
-        }
+        //Check if timeout is set and clear it
+        if (wait === true) {
+          if (this.recalculateDimensionsTimeOut !== null) {
+            clearTimeout(this.recalculateDimensionsTimeOut);
+          }
 
-        if (
-          this.stories_wrapper.offsetWidth == 0 ||
-          this.stories_wrapper.offsetHeight == 0
-        ) {
-          this.recalculateDimensionsTimeOut = setTimeout(() => {
-            this.recalculateDimensions(wait);
-          }, 100);
+          if (
+              this.stories_wrapper.offsetWidth === 0 ||
+              this.stories_wrapper.offsetHeight === 0
+          ) {
+            this.recalculateDimensionsTimeOut = setTimeout(() => {
+              this.recalculateDimensions(wait);
+            }, 100);
+          }
         }
       }
     },
@@ -227,7 +230,7 @@ export default {
         style["margin-top"] = this.currentStoryIndex * -this.height + "px";
       }
       //Transition Timeout
-      if (this.withTransition == false) {
+      if (this.withTransition === false) {
         setTimeout(() => {
           this.withTransition = true;
         }, 300);
