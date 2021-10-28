@@ -132,6 +132,7 @@ export default {
   @prev_story="prevStoryEvent"
   @prev_slide="prevSlideEvent"
   @next_slide="nextSlideEvent"
+  @slide_changed="slideChangedEvent"
   @swipe_up="swipe_up"
   @swipe_down="swipe_down"
   @swipe_left="swipe_left"
@@ -156,6 +157,9 @@ export default {
     },
     nextSlideEvent() {
       console.log("nextSlideEvent");
+    },
+    slideChangedEvent(index){
+      console.log("slideChangedEvent: " + index);
     },
     swipe_left() {
       console.log("swipe_left Event");

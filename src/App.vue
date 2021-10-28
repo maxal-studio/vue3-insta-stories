@@ -142,10 +142,10 @@ export default {
       console.log("endedEvent");
     },
     prevStoryEvent(index) {
-      console.log("prevStoryEvent: " + index);
+      console.log("%cprevStoryEvent: " + index, "color:red");
     },
     nextStoryEvent(index) {
-      console.log("nextStoryEvent: " + index);
+      console.log("%cnextStoryEvent: " + index, "color:red");
     },
     prevSlideEvent(index) {
       console.log("prevSlideEvent: " + index);
