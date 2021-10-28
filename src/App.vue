@@ -39,6 +39,7 @@
           @prev_story="prevStoryEvent"
           @prev_slide="prevSlideEvent"
           @next_slide="nextSlideEvent"
+          @slide_changed="slideChangedEvent"
           @swipe_up="swipe_up"
           @swipe_down="swipe_down"
           @swipe_left="swipe_left"
@@ -81,21 +82,21 @@ export default {
           custom_attribute: "Story 1",
           slides: [
             { id: 1, color: "#D53738", duration: 3000 },
-            { id: 2, color: "#638867", duration: 10000 },
+            { id: 2, color: "#638867", duration: 7000 },
           ],
         },
         {
           custom_attribute: "Story 2",
           slides: [
             { id: 3, color: "#DAF7A6" },
-            { id: 4, color: "#FFC300", duration: 20000 },
+            { id: 4, color: "#FFC300", duration: 10000 },
             { id: 5, color: "#FF5733" },
           ],
         },
         {
           custom_attribute: "Story 3",
           slides: [
-            { id: 6, color: "#00BCD4", duration: 7000 },
+            { id: 6, color: "#00BCD4", duration: 4000 },
             { id: 7, color: "#00BCD4" },
           ],
         },
@@ -140,17 +141,20 @@ export default {
       this.showSlider = false;
       console.log("endedEvent");
     },
-    prevStoryEvent() {
-      console.log("prevStoryEvent");
+    prevStoryEvent(index) {
+      console.log("prevStoryEvent: " + index);
     },
-    nextStoryEvent() {
-      console.log("nextStoryEvent");
+    nextStoryEvent(index) {
+      console.log("nextStoryEvent: " + index);
     },
-    prevSlideEvent() {
-      console.log("prevSlideEvent");
+    prevSlideEvent(index) {
+      console.log("prevSlideEvent: " + index);
     },
-    nextSlideEvent() {
-      console.log("nextSlideEvent");
+    nextSlideEvent(index) {
+      console.log("nextSlideEvent: " + index);
+    },
+    slideChangedEvent(index){
+      console.log("slideChangedEvent: " + index);
     },
     swipe_left() {
       console.log("swipe_left Event");
@@ -171,7 +175,7 @@ export default {
   },
 };
 </script>
-  
+
 <style lang='scss'>
 .overlay {
   position: fixed;

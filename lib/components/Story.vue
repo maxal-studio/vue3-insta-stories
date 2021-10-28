@@ -21,6 +21,7 @@ export default {
     duration: Number,
     width: Number,
     height: Number,
+    storyIndex:Number,
   },
   data() {
     const timeline = anime.timeline({
@@ -64,18 +65,18 @@ export default {
       this.timeline.play();
     },
     nextSlide: function () {
-      this.$emit("next_slide");
       if (this.currentSlideIndex < this.slides.length - 1) {
         this.currentSlideIndex++;
+        this.$emit("next_slide", this.currentSlideIndex);
         this.resetSlide();
       } else {
         this.nextStory();
       }
     },
     prevSlide: function () {
-      this.$emit("prev_slide");
       if (this.currentSlideIndex > 0) {
         this.currentSlideIndex--;
+        this.$emit("prev_slide", this.currentSlideIndex);
         this.resetSlide();
       } else {
         this.previousStory();
@@ -120,12 +121,21 @@ export default {
         width: "100%",
         changeBegin: () => {
           // Update the Vue componenet state when progress bar begins to play
+          if(this.currentSlideIndex !== index){
+            if(this.currentSlideIndex < index){
+              this.$emit("next_slide", index);
+            } else {
+              this.$emit("prev_slide", index);
+            }
+          }
           this.currentSlideIndex = index;
+          this.$emit("slide_changed", index);
         },
         complete: () => {
           // Move to the next story when finished playing all slides
           if (index === this.slides.length - 1) {
             this.nextStory();
+            // this.$emit("next_slide");
           }
         },
       });
